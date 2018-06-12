@@ -15,20 +15,16 @@ while getopts 'abi:v' flag; do
   esac
 done
 
+. boot.mod
 
 grep -r "PRETTY_NAME" $input/basic-environment.txt
-
 grep -nri -A5 "/usr/bin/free -k" $input/basic-health-check.txt
-
-
 
 echo " "
 
 #Boot Info
 
-echo "Boots in /var/log/messages"
-grep -nr "syslog-ng starting up" message* #SLES 11
-grep -nr "software=\"rsyslogd\"" message* #SLES 12
+bootsles11
 
 grep -r "PRETTY_NAME" $input/basic-environment.txt
 
