@@ -1,0 +1,2 @@
+# sc
+Tool for supportconfig
