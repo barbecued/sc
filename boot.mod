@@ -12,7 +12,7 @@ grep -nr "software=\"rsyslogd\"" message* #SLES 12
 
 function bootall()
 {
-
+echo "placeholder text so this script does not fail due to function being empty"
 }
 
 
