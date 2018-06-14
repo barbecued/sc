@@ -1,10 +1,13 @@
 #!/bin/bash
 
+
+#Default values for flags
 verbose='false'
 aflag=''
 bflag=''
 input=.
 
+#Case to get flags
 while getopts 'abi:v' flag; do
   case "${flag}" in
     a) aflag='true' ;;
@@ -15,9 +18,10 @@ while getopts 'abi:v' flag; do
   esac
 done
 
+#Load modules. To add additional modules, syntax is ". boot.mod" to load the script module
 . boot.mod
 
-PRETTY_NAME=$(grep -r "SUSE Linux" $input/basic-environment.txt)
+PRETTY_NAME=$(grep -r "PRETTY_NAME" $input/basic-environment.txt)
 echo $PRETTY_NAME
 grep -nri -A5 "/usr/bin/free -k" $input/basic-health-check.txt
 
@@ -48,3 +52,4 @@ fi
 #grep -nri -A5 "/usr/bin/free -k" $input/basic-health-check.txt
 #}
 #fi
+
