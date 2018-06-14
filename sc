@@ -20,15 +20,21 @@ done
 
 #Load modules. To add additional modules, syntax is ". boot.mod" to load the script module
 . boot.mod
+. updates.mod
+
 
 PRETTY_NAME=$(grep -r "PRETTY_NAME" $input/basic-environment.txt)
 echo $PRETTY_NAME
+
+echo " "
+
+echo "MEMORY "
 grep -nri -A5 "/usr/bin/free -k" $input/basic-health-check.txt
 
 echo " "
 
 #Boot Info
-
+echo "BOOT HISTORY "
 if [[ $PRETTY_NAME = *"11"* ]]; then
   bootsles11
 elif [[ $PRETTY_NAME = *"12"* ]]; then
@@ -38,6 +44,12 @@ else
   bootsles11
   bootsles12
 fi
+
+echo " "
+
+#Updates
+echo "PATCHES NEEDED "
+neededpatchesnumber
 
 
 
@@ -52,4 +64,5 @@ fi
 #grep -nri -A5 "/usr/bin/free -k" $input/basic-health-check.txt
 #}
 #fi
-
+~                                                                                                                                                                                
+~                                         
