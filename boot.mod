@@ -14,8 +14,7 @@ grep -nr "origin\ software=\"rsyslogd\"" message* #SLES 12
 function bootall()
 {
 echo "testing"
-}
-~                          
+}                         
 
 
 
