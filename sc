@@ -30,7 +30,7 @@ echo -n "OS Version: "
 echo $PRETTY_NAME | cut -d = -f2 | tr -d \"
 
 #echo kernel version
-KERNEL=$(grep "Linux" $input/basic-environment.txt | grep -v SUSE | cut -d " " -f 3 | cut -d \- -f1,2)
+KERNEL=$(grep "Linux" $input/basic-environment.txt | cut -d " " -f 3 | cut -d \- -f1,2 | grep -Ev '[A-Za-z]')
 echo -n "Kernel Version: "
 echo $KERNEL
 echo -n "Kernel Release Date: "
@@ -39,7 +39,7 @@ wget -qO- "https://wiki.microfocus.com/index.php?title=SUSE/SLES/Kernel_versions
 #echo architecture
 ARCH=$(grep "Linux" $input/basic-environment.txt | grep -v SUSE | cut -d " " -f 13)
 echo -n "Architecture: "
-echo $ARCHo " "
+echo $ARCH " "
 
 #echo kernel verification
 echo -n "kernel verification (no news is good news)
