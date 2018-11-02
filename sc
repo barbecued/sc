@@ -41,6 +41,10 @@ ARCH=$(grep "Linux" $input/basic-environment.txt | grep -v SUSE | cut -d " " -f 
 echo -n "Architecture: "
 echo $ARCHo " "
 
+#echo kernel verification
+echo -n "kernel verification (no news is good news)
+grep -i -B1 'status: failed' boot.txt
+
 
 #echo memory
 echo "MEMORY "
