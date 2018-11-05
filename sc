@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#test slack app
+#test slack app integration
 
 bold=$(tput bold)
 normal=$(tput sgr0)
