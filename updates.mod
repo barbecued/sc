@@ -2,5 +2,5 @@
 
 function neededpatchesnumber()
 {
-	grep "patches needed" updates.txt
+	grep -m 1 "patches needed" updates.txt
 }
