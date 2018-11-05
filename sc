@@ -42,7 +42,7 @@ echo -n "Architecture: "
 echo $ARCH " "
 
 #echo kernel verification
-echo -n "kernel verification (no news is good news)
+echo -n "kernel verification (no news is good news)"
 grep -i -B1 'status: failed' boot.txt
 
 
