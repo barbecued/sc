@@ -38,6 +38,9 @@ KERNEL=$(grep "Linux" $input/basic-environment.txt | cut -d " " -f 3 | cut -d \-
 echo "${bold}Kernel Version: ${normal}" $KERNEL
 echo -n "${bold}Kernel Release Date: ${normal}"
 wget -qO- "https://wiki.microfocus.com/index.php?title=SUSE/SLES/Kernel_versions" | grep -B 2 $(echo $KERNEL) | grep "<th>" | cut -d " " -f 2
+echo -n "${bold}Kernel Verification:${normal} (no news is good news)"
+grep -i -B1 'status: failed' boot.txt
+
 echo
 
 #display architecture
