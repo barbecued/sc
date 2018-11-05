@@ -2,5 +2,5 @@
 
 function neededpatchesnumber()
 {
-grep -r "patches needed" update* 
+	grep -r "patches needed" update* 
 }
