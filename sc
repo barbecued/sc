@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#test slack app integration
+
+bold=$(tput bold)
+normal=$(tput sgr0)
+echo
 
 #Default values for flags
 verbose='false'
@@ -24,37 +29,38 @@ done
 . boot.mod
 . updates.mod
 
-#echo OS version
+
+
+#display OS version
 PRETTY_NAME=$(grep -r "PRETTY_NAME" $input/basic-environment.txt)
-echo -n "OS Version: " 
+echo -n "${bold}OS Version: ${normal}" 
 echo $PRETTY_NAME | cut -d = -f2 | tr -d \"
+echo
 
-#echo kernel version
+#display kernel version
 KERNEL=$(grep "Linux" $input/basic-environment.txt | cut -d " " -f 3 | cut -d \- -f1,2 | grep -Ev '[A-Za-z]')
-echo -n "Kernel Version: "
-echo $KERNEL
-echo -n "Kernel Release Date: "
+echo "${bold}Kernel Version: ${normal}" $KERNEL
+echo -n "${bold}Kernel Release Date: ${normal}"
 wget -qO- "https://wiki.microfocus.com/index.php?title=SUSE/SLES/Kernel_versions" | grep -B 2 $(echo $KERNEL) | grep "<th>" | cut -d " " -f 2
-
-#echo architecture
-ARCH=$(grep "Linux" $input/basic-environment.txt | grep -v SUSE | cut -d " " -f 13)
-echo -n "Architecture: "
-echo $ARCH " "
-
-#echo kernel verification
-echo "kernel verification (no news is good news)"
+echo -n "${bold}Kernel Verification:${normal} (no news is good news)"
 grep -i -B1 'status: failed' boot.txt
 
+echo
 
-#echo memory
-echo "MEMORY "
+#display architecture
+ARCH=$(grep "Linux" $input/basic-environment.txt | grep -v SUSE | cut -d " " -f 13)
+echo "${bold}Architecture: ${normal}" $ARCH
+echo
+
+
+#display memory info
+echo "${bold}MEMORY ${normal}"
 grep -nri -A5 "/usr/bin/free -k" $input/basic-health-check.txt
 grep -nri "invoked oom-killer" messages$aflag --color=auto
+echo
 
-echo " "
-
-#Boot Info
-echo "BOOT HISTORY "
+#display Boot Info
+echo "${bold}BOOT HISTORY ${normal}"
 if [[ $PRETTY_NAME = *"11"* ]]; then
   bootsles11
 elif [[ $PRETTY_NAME = *"12"* ]]; then
@@ -67,8 +73,8 @@ fi
 
 echo " "
 
-#Updates
-echo "PATCHES NEEDED "
+#display Updates info
+echo "${bold}PATCHES NEEDED ${normal}"
 neededpatchesnumber
 
 #Check server performance
