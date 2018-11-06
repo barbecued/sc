@@ -9,6 +9,6 @@ fi
 
 echo "installing sc tool to /usr/local/bin"
 
-for file in boot.mod updates.mod sc
+for file in boot.mod updates.mod performance.mod sc
 do cp $file /usr/local/bin/$file
 done
