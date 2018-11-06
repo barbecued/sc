@@ -6,14 +6,16 @@ verbose='false'
 aflag='.txt'
 bflag=''
 input=.
+performance='false'
 
 #Case to get flags
-while getopts 'abi:v' flag; do
+while getopts 'abi:vp' flag; do
   case "${flag}" in
     a) aflag='*' ;;
     b) bflag='true' ;;
     i) input="${OPTARG}" ;;
     v) verbose='true' ;;
+    p) performance='true' ;;
     *) error "Unexpected option ${flag}" ;;
   esac
 done
@@ -21,8 +23,6 @@ done
 #Load modules. To add additional modules, syntax is ". boot.mod" to load the script module
 . boot.mod
 . updates.mod
-
-
 
 #echo OS version
 PRETTY_NAME=$(grep -r "PRETTY_NAME" $input/basic-environment.txt)
@@ -71,7 +71,11 @@ echo " "
 echo "PATCHES NEEDED "
 neededpatchesnumber
 
-
+#Check server performance
+if [ $performance = 'true' ]; then
+	. performance.mod
+	cpu_load
+fi
 
 #read -p "  PROMPT: " prompt
 
