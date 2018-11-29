@@ -16,11 +16,11 @@ args = parser.parse_args()
 text2find = 'PRETTY_NAME'
 for line in open('basic-environment.txt', 'r'):
     if re.search(text2find, line):
-        print('OS Version: ' + re.findall(r'"(.*?)"', line)[0])
+        print('\u001b[1mOS Version: \u001b[0m' + re.findall(r'"(.*?)"', line)[0])
 
 with open('basic-environment.txt', 'r') as searchfile:
     for line in searchfile:
         if 'GNU/Linux' in line:
-            print("Kernel Version:  " + line.split()[2])
+            print("\u001b[1mKernel Version:  \u001b[0m " + line.split()[2])
 
 
