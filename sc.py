@@ -17,3 +17,10 @@ text2find = 'PRETTY_NAME'
 for line in open('basic-environment.txt', 'r'):
     if re.search(text2find, line):
         print('OS Version: ' + re.findall(r'"(.*?)"', line)[0])
+
+with open('basic-environment.txt', 'r') as searchfile:
+    for line in searchfile:
+        if 'GNU/Linux' in line:
+            print("Kernel Version:  " + line.split()[2])
+
+
