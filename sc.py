@@ -30,6 +30,11 @@ try:
 except IOError:
     print('\u001b[1mKernel Version: \u001b[0m Error reading basic-environment.txt')
 
+with open('basic-health-check.txt', 'r') as searchfile:
+    for line in searchfile:
+        if '/usr/bin/free' in line:
+            print("\u001b[1mMemory: \u001b[0m \n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip())
+            
 #Display Architecture
 text2find = 'Linux'
 try:
