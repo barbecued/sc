@@ -1,6 +1,6 @@
 #! /usr/bin/python3
-#SC Python Script
-#Use to help anaylize supportconfig files
+# SC Python Script
+# Use to help anaylize supportconfig files
 
 import sys
 import argparse
@@ -12,15 +12,21 @@ parser.add_argument('-p', action='store_true', help='print information about ser
 
 args = parser.parse_args()
 
-#Display OS Version
+#Display OS
 text2find = 'PRETTY_NAME'
 for line in open('basic-environment.txt', 'r'):
     if re.search(text2find, line):
         print('\u001b[1mOS Version: \u001b[0m' + re.findall(r'"(.*?)"', line)[0])
 
+#Display Kernel Version
 with open('basic-environment.txt', 'r') as searchfile:
     for line in searchfile:
         if 'GNU/Linux' in line:
-            print("\u001b[1mKernel Version:  \u001b[0m " + line.split()[2])
+            print("\u001b[1mKernel Version: \u001b[0m" + line.split()[2])
 
-
+#Display Architecture
+text2find = 'Linux'
+for line in open('basic-environment.txt', 'r'):
+    if re.search(text2find, line):
+        print('\u001b[1mArchitecture: \u001b[0m' + str(line.split()[12]))
+        break
