@@ -30,10 +30,13 @@ try:
 except IOError:
     print('\u001b[1mKernel Version: \u001b[0m Error reading basic-environment.txt')
 
-with open('basic-health-check.txt', 'r') as searchfile:
-    for line in searchfile:
-        if '/usr/bin/free' in line:
-            print("\u001b[1mMemory: \u001b[0m \n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip())
+try:
+    with open('basic-health-check.txt', 'r') as searchfile:
+        for line in searchfile:
+            if '/usr/bin/free' in line:
+                print("\u001b[1mMemory: \u001b[0m \n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip())
+except IOError:
+    print('\u001b[1mArchitecture: \u001b[0m Error reading basic-environment.txt')
             
 #Display Architecture
 text2find = 'Linux'
@@ -43,4 +46,4 @@ try:
             print('\u001b[1mArchitecture: \u001b[0m' + str(line.split()[12]))
             break
 except IOError:
-    print('\u001b[1mArchitecture: \u001b[0m Error reading basic-environment.txt')
+    print('\u001b[1mMemory: \u001b[0m Error reading basic-environment.txt')
