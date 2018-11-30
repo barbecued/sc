@@ -21,6 +21,10 @@ for line in open('basic-environment.txt', 'r'):
 with open('basic-environment.txt', 'r') as searchfile:
     for line in searchfile:
         if 'GNU/Linux' in line:
-            print("\u001b[1mKernel Version:  \u001b[0m " + line.split()[2])
+            print("\u001b[1mKernel Version: \u001b[0m " + line.split()[2])
 
-
+with open('basic-health-check.txt', 'r') as searchfile:
+    for line in searchfile:
+        if '/usr/bin/free' in line:
+            print("\u001b[1mMemory: \u001b[0m \n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip() + "\n" + next(searchfile, '').strip())
+            
