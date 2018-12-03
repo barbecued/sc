@@ -47,3 +47,13 @@ try:
             break
 except IOError:
     print('\u001b[1mMemory: \u001b[0m Error reading basic-environment.txt')
+
+#Display Patch Status
+text2find = 'patches needed'
+try:
+    for line in open('updates.txt', 'r'):
+        if re.search(text2find, line):
+            print('\u001b[1mPatches Needed: \u001b[0m' + line.rstrip())
+            break
+except IOError:
+    print('\u001b[1mMemory: \u001b[0m Error reading messages.txt')
