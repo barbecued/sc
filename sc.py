@@ -57,3 +57,15 @@ try:
             break
 except IOError:
     print('\u001b[1mMemory: \u001b[0m Error reading messages.txt')
+
+#Display Core Dumps
+text2find = 'vmcore'
+file2open = 'crash.txt'
+try:
+    for line in open(file2open, 'r'):
+        if re.search(text2find, line):
+            print('\u001b[1mKernel Core Dumps: \u001b[0m' + line.rstrip())
+            break
+except IOError:
+    print('\u001b[1mMemory: \u001b[0m Error reading ' + file2open)
+
