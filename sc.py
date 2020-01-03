@@ -12,6 +12,36 @@ parser.add_argument('-p', action='store_true', help='print information about ser
 
 args = parser.parse_args()
 
+
+#Boot History
+text2find = "syslog-ng starting up |origin\ software=\"rsyslogd\""
+file2open = "messages.txt"
+try:
+    for line in open(file2open, 'r'):
+        if re.search(text2find, line):
+            print('\u001b[1mBoot History: \u001b[0m' + line.rstrip())
+except IOError:
+    print('\u001b[1mMemory: \u001b[0m Error reading ' + file2open)
+
+
+#OOM-KILLER
+text2find ="invoked oom-killer"
+file2open = "messages.txt"
+file2open2 = "boot.txt"
+try:
+    for line in open(file2open, 'r'):
+        if re.search(text2find, line):
+            print('\u001b[1mOut Of Memory Errors: \u001b[0m' + line.rstrip())
+    for line in open(file2open2, 'r'):
+        if re.search(text2find, line):
+            print('\u001b[1mOut Of Memory Errors: \u001b[0m')
+            continue
+        if re.search(text2find, line):
+            print(line.rstrip())
+except IOError:
+    print('\u001b[1mMemory: \u001b[0m Error reading ' + file2open)
+
+
 #Display OS
 text2find = 'PRETTY_NAME'
 try:
@@ -69,30 +99,5 @@ try:
 except IOError:
     print('\u001b[1mMemory: \u001b[0m Error reading ' + file2open)
 
-
-#Boot History
-text2find = "syslog-ng starting up|origin\ software=\"rsyslogd\""
-file2open = "messages.txt"
-try:
-    for line in open(file2open, 'r'):
-        if re.search(text2find, line):
-            print('\u001b[1mBoot History: \u001b[0m' + line.rstrip())
-except IOError:
-    print('\u001b[1mMemory: \u001b[0m Error reading ' + file2open)
-
-
-#OOM-KILLER
-text2find ="invoked oom-killer"
-file2open = "messages.txt"
-file2open2 = "boot.txt"
-try:
-    for line in open(file2open, 'r'):
-        if re.search(text2find, line):
-            print('\u001b[1mOut Of Memory Errors: \u001b[0m' + line.rstrip())
-    for line in open(file2open2, 'r'):
-        if re.search(text2find, line):
-            print('\u001b[1mOut Of Memory Errors: \u001b[0m' + line.rstrip())
-except IOError:
-    print('\u001b[1mMemory: \u001b[0m Error reading ' + file2open)
 
 
