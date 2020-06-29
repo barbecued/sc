@@ -28,5 +28,6 @@ What does it do? It displays:
 
 -Boot based on syslog starting in /var/log/messages. May have many false matches, but this will give you an idea
 
+
 This tool needs more. Please feel free to contribute.
 
