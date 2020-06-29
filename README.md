@@ -10,7 +10,7 @@ Navigate to the location of an extracted supportconfig and run "sc"
 
 What does it do? It displays:
 
-Kernel version and Kernel Release Date
+-Kernel version and Kernel Release Date
 
 -Version of SLES
 
