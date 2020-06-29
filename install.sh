@@ -9,6 +9,4 @@ fi
 
 echo "installing sc tool to /usr/local/bin"
 
-for file in boot.mod updates.mod performance.mod sc sc.py
-do cp $file /usr/local/bin/$file
-done
+cp sc sc.py /usr/local/bin/
