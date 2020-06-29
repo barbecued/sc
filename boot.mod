@@ -8,7 +8,7 @@ function bootsles11()
 function bootsles12()
 {
 	#grep -nr "origin software" message* #SLES 12
-	grep -nr "origin\ software=\"rsyslogd\"" message* #SLES 12
+	grep -nr "origin\ software=\"rsyslogd\"" message* | grep -v HUPed #SLES 12
 }
 
 function bootall()

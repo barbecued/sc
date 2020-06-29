@@ -71,7 +71,10 @@ echo "${bold}Kernel Version: ${normal}" $KERNEL
 echo -n "${bold}Kernel Release Date: ${normal}"
 wget -qO- "https://wiki.microfocus.com/index.php?title=SUSE/SLES/Kernel_versions" | grep -B 2 $(echo $KERNEL).1 | grep "<th>" | cut -d " " -f 2
 echo -n "${bold}Kernel Verification:${normal} (no news is good news)"
+#check for kernel taint
+echo -n "${bold}   Kernel Taint${normal} $(grep -r "Kernel Status" basic-health-check.txt | cut -d "-" -f2-)"
 grep -i -B1 'status: failed' boot.txt
+
 
 echo
 
