@@ -1,8 +1,8 @@
 # sc
-Tool for supportconfig
+A tool to display ssome useful information from a supportconfig.
 
 Install by running install.sh as root or with sudo.
-Places necessary files in /usr/local/bin.
+Installer places necessary files in /usr/local/bin.
 
 Usage:
 
