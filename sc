@@ -13,6 +13,11 @@ bflag=''
 input=.
 performance='false'
 
+#Variables you can adjust
+column1="%-20s" # spaces before column 2 starts
+column2="%-20s" # spaces before column 2 starts
+
+
 #Case to get flags
 while getopts 'abi:vp' flag; do
   case "${flag}" in
@@ -53,10 +58,6 @@ function cpu_load() {
 function neededpatchesnumber() { grep -m 1 "patches needed" updates.txt }
 
 ### END FUNCTIONS ###
-
-#Variables you can adjust
-column1="%-20s" # spaces before column 2 starts
-column2="%-20s" # spaces before column 2 starts
 
 #display Boot Info
 echo "${bold}BOOT HISTORY ${normal}"
