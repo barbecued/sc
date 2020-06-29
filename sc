@@ -31,15 +31,15 @@ while getopts 'abi:vp' flag; do
 done
 
 #### Is this script being run inside a supportconfig?  If not, exit ####
-if [[ -f ./basic-environment.txt ]]; then
-    echo "Both files exist."
-    else echo
-         echo "This directory does not appear to be an extracted supportconfig."
-         echo
-         echo "For sc to run, the file basic-environment.txt (which is one of the files contained in a supportconfig) must be found in the current working directory.  Please extract a supportconfig and cd into the supportconfig main directory before running sc again"
-         echo
-         exit 1
-fi
+#if [[ -f ./basic-environment.txt ]]; then
+#    echo "Both files exist."
+#    else echo
+#         echo "This directory does not appear to be an extracted supportconfig."
+#         echo
+#         echo "For sc to run, the file basic-environment.txt (which is one of the files contained in a supportconfig) must be found in the current working directory.  Please extract a supportconfig and cd into the supportconfig main directory before running sc again"
+#         echo
+#         exit 1
+#fi
 
 
 
@@ -70,7 +70,21 @@ function cpu_load() {
 # Updates
 function neededpatchesnumber() { grep -m 1 "patches needed" updates.txt ;}
 
+# Sanity is this a supportconfig check
+function sanitycheck () {
+	if [[ ! -f ./basic-environment.txt ]]; then
+       		echo
+        	echo "This directory does not appear to be an extracted supportconfig."
+         	echo
+         	echo "For sc to run, the file basic-environment.txt (which is one of the files contained in a supportconfig) must be found in the current working directory.  Please extract a supportconfig and cd into the supportconfig main directory before running sc again"
+         	echo
+         	exit 1
+	fi
+}
 ### END FUNCTIONS ###
+
+#sanity check -- is the current working directory an extracted supportconfig
+sanitycheck
 
 #display Boot Info
 echo
