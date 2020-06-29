@@ -32,12 +32,8 @@ done
 
 ### FUNCTIONS ###
 # Boot
-function bootsles11() { 
-	grep -nr "syslog-ng starting up" message* 
-}
-function bootsles12() { 
-	grep -nr "origin\ software=\"rsyslogd\"" message* | grep -v HUPed 
-}
+function bootsles11() {	grep -nr "syslog-ng starting up" message* ;}
+function bootsles12() { grep -nr "origin\ software=\"rsyslogd\"" message* | grep -v HUPed ;}
 
 # Performance
 function cpu_load() {
@@ -58,9 +54,7 @@ function cpu_load() {
 }
 
 # Updates
-function neededpatchesnumber() { 
-	grep -m 1 "patches needed" updates.txt 
-}
+function neededpatchesnumber() { grep -m 1 "patches needed" updates.txt ;}
 
 ### END FUNCTIONS ###
 
