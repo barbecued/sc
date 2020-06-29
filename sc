@@ -30,6 +30,20 @@ while getopts 'abi:vp' flag; do
   esac
 done
 
+#### Is this script being run inside a supportconfig?  If not, exit ####
+if [[ -f ./basic-environment.txt ]]; then
+    echo "Both files exist."
+    else echo
+         echo "This directory does not appear to be an extracted supportconfig."
+         echo
+         echo "For sc to run, the file basic-environment.txt (which is one of the files contained in a supportconfig) must be found in the current working directory.  Please extract a supportconfig and cd into the supportconfig main directory before running sc again"
+         echo
+         exit 1
+fi
+
+
+
+
 ### FUNCTIONS ###
 # Boot
 function bootsles11() {	grep -nr "syslog-ng starting up" message* ;}
@@ -94,7 +108,7 @@ echo "${bold}Kernel Version: ${normal}" $KERNEL
 echo -n "${bold}Kernel Release Date: ${normal}"
 #wget -qO- "https://wiki.microfocus.com/index.php?title=SUSE/SLES/Kernel_versions" | grep -B 2 $(echo $KERNEL).1 | grep "<th>" | cut -d " " -f 2
 wget -qO- "https://www.suse.com/support/kb/doc/?id=000019587" | grep -o -P ".{0,80}$KERNEL" | cut -f2 -d">" | cut -f1 -d"<"
-echo -n "${bold}Kernel Verification:${normal} (no news is good news)"
+#echo -n "${bold}Kernel Verification:${normal} (no news is good news)"
 #check for kernel taint
 echo -n "${bold}   Kernel Taint${normal} $(grep -r "Kernel Status" basic-health-check.txt | cut -d "-" -f2-)"
 grep -i -B1 'status: failed' boot.txt
