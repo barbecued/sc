@@ -69,7 +69,8 @@ echo
 KERNEL=$(grep "Linux" $input/basic-environment.txt | cut -d " " -f 3 | cut -d \- -f1,2 | grep -Ev '[A-Za-z]')
 echo "${bold}Kernel Version: ${normal}" $KERNEL
 echo -n "${bold}Kernel Release Date: ${normal}"
-wget -qO- "https://wiki.microfocus.com/index.php?title=SUSE/SLES/Kernel_versions" | grep -B 2 $(echo $KERNEL).1 | grep "<th>" | cut -d " " -f 2
+#wget -qO- "https://wiki.microfocus.com/index.php?title=SUSE/SLES/Kernel_versions" | grep -B 2 $(echo $KERNEL).1 | grep "<th>" | cut -d " " -f 2
+wget -qO- "https://www.suse.com/support/kb/doc/?id=000019587" | grep -o -P ".{0,80}$KERNEL" | cut -f2 -d">" | cut -f1 -d"<"
 echo -n "${bold}Kernel Verification:${normal} (no news is good news)"
 #check for kernel taint
 echo -n "${bold}   Kernel Taint${normal} $(grep -r "Kernel Status" basic-health-check.txt | cut -d "-" -f2-)"
