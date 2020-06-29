@@ -25,9 +25,34 @@ while getopts 'abi:vp' flag; do
   esac
 done
 
-#Load modules. To add additional modules, syntax is ". boot.mod" to load the script module
-. boot.mod
-. updates.mod
+### FUNCTIONS ###
+# Boot
+function bootsles11() { grep -nr "syslog-ng starting up" message* }
+function bootsles12() { grep -nr "origin\ software=\"rsyslogd\"" message* | grep -v HUPed }
+function bootall() { echo "testing" }
+
+# Performance
+function cpu_load() {
+        printf "\n${bold}CHECKING SAR DATA${normal}\n"
+        SARDIR=sar
+        if [ -d $SARDIR ]; then
+                if ls $SARDIR/sar* 1> /dev/null 2>&1; then
+                        printf "Sar files exist\n"
+                        NUMPROC=$(sed -n "s/CPU(s):[ \t]*//p" hardware.txt | awk 'NR==1{print $1}')
+                        printf "Number of processors: "
+                        echo -e "$NUMPROC\n"
+                else
+                        echo "Sar files do not exist"
+                fi
+        else
+                echo "Sar files do not exist"
+        fi
+}
+
+# Updates
+function neededpatchesnumber() { grep -m 1 "patches needed" updates.txt }
+
+### END FUNCTIONS ###
 
 #Variables you can adjust
 column1="%-20s" # spaces before column 2 starts
@@ -53,7 +78,6 @@ neededpatchesnumber
 
 #Check server performance
 if [ $performance = 'true' ]; then
-	. performance.mod
 	cpu_load
 fi
 
