@@ -4,7 +4,6 @@
 
 bold=$(tput bold)
 normal=$(tput sgr0)
-echo
 
 #Default values for flags
 verbose='false'
@@ -60,6 +59,7 @@ function neededpatchesnumber() { grep -m 1 "patches needed" updates.txt }
 ### END FUNCTIONS ###
 
 #display Boot Info
+echo
 echo "${bold}BOOT HISTORY ${normal}"
 if [[ $PRETTY_NAME = *"11"* ]]; then
   bootsles11
@@ -70,8 +70,7 @@ else
   bootsles11
   bootsles12
 fi
-
-echo " "
+echo 
 
 #display Updates info
 echo "${bold}PATCHES NEEDED ${normal}"
@@ -81,7 +80,6 @@ neededpatchesnumber
 if [ $performance = 'true' ]; then
 	cpu_load
 fi
-
 
 #display OS version
 PRETTY_NAME=$(grep -r "PRETTY_NAME" $input/basic-environment.txt)
@@ -100,8 +98,6 @@ echo -n "${bold}Kernel Verification:${normal} (no news is good news)"
 #check for kernel taint
 echo -n "${bold}   Kernel Taint${normal} $(grep -r "Kernel Status" basic-health-check.txt | cut -d "-" -f2-)"
 grep -i -B1 'status: failed' boot.txt
-
-
 echo
 
 #display architecture
@@ -109,14 +105,11 @@ ARCH=$(grep "Linux" $input/basic-environment.txt | grep -v SUSE | cut -d " " -f 
 echo "${bold}Architecture: ${normal}" $ARCH
 echo
 
-
 #display memory info
 echo "${bold}MEMORY ${normal}"
 grep -nri -A5 "/usr/bin/free -k" $input/basic-health-check.txt
 grep -nri "invoked oom-killer" messages$aflag --color=auto
 echo
-
-
 
 #read -p "  PROMPT: " prompt
 
@@ -129,5 +122,3 @@ echo
 #grep -nri -A5 "/usr/bin/free -k" $input/basic-health-check.txt
 #}
 #fi
-                                                                                                                                                      
-                                                  
