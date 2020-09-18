@@ -67,6 +67,7 @@ function cpu_load() {
         fi
 }
 
+
 # Updates
 function neededpatchesnumber() { grep -m 1 "patches needed" updates.txt ;}
 
@@ -100,9 +101,16 @@ else
 fi
 echo 
 
+#oomkiller search
+grep -nri "invoked oom-killer" messages$aflag --color=auto
+
+
+
+#Timestamp of supportconfig based on uname -a
+echo "${bold}Date:           ${normal}" $(grep -A1 "\/bin\/date" basic-environment.txt | xargs | cut -d ' ' -f3-)
+
 #display Updates info
-echo "${bold}PATCHES NEEDED ${normal}"
-neededpatchesnumber
+echo "${bold}Patches Needed: ${normal}" $(neededpatchesnumber)
 
 #Check server performance
 if [ $performance = 'true' ]; then
@@ -110,43 +118,30 @@ if [ $performance = 'true' ]; then
 fi
 
 #display OS version
-PRETTY_NAME=$(grep -r "PRETTY_NAME" $input/basic-environment.txt)
+PRETTY_NAME=$(grep -r "PRETTY_NAME" $input/basic-environment.txt | cut -f2- -d '"')
 #echo -n "${bold}OS Version: ${normal}" 
-printf  "$column1 $column2" "${bold}OS Version: ${normal}" "$PRETTY_NAME"
+printf  "$column1 $column2" "${bold}OS Version:     ${normal}" "$PRETTY_NAME" 
 #echo $PRETTY_NAME | cut -d = -f2 | tr -d \"
 echo
 
 #display kernel version
 KERNEL=$(grep "Linux" $input/basic-environment.txt | cut -d " " -f 3 | cut -d \- -f1,2 | grep -Ev '[A-Za-z]')
-echo "${bold}Kernel Version: ${normal}" $KERNEL
-echo -n "${bold}Kernel Release Date: ${normal}"
+echo -n "${bold}Kernel Version: ${normal}" $KERNEL
+echo -n "   ${bold}Released: ${normal}"
 #wget -qO- "https://wiki.microfocus.com/index.php?title=SUSE/SLES/Kernel_versions" | grep -B 2 $(echo $KERNEL).1 | grep "<th>" | cut -d " " -f 2
 wget -qO- "https://www.suse.com/support/kb/doc/?id=000019587" | grep -o -P ".{0,80}$KERNEL" | cut -f2 -d">" | cut -f1 -d"<"
 #echo -n "${bold}Kernel Verification:${normal} (no news is good news)"
 #check for kernel taint
-echo -n "${bold}   Kernel Taint${normal} $(grep -r "Kernel Status" basic-health-check.txt | cut -d "-" -f2-)"
+echo -n "${bold}Kernel Taint   ${normal}  "
+grep -r "Kernel Status" basic-health-check.txt | cut -d " " -f4-
 grep -i -B1 'status: failed' boot.txt
-echo
 
 #display architecture
 ARCH=$(grep "Linux" $input/basic-environment.txt | grep -v SUSE | cut -d " " -f 13)
-echo "${bold}Architecture: ${normal}" $ARCH
+echo "${bold}Architecture:   ${normal}" $ARCH
 echo
 
 #display memory info
 echo "${bold}MEMORY ${normal}"
-grep -nri -A5 "/usr/bin/free -k" $input/basic-health-check.txt
-grep -nri "invoked oom-killer" messages$aflag --color=auto
-echo
+grep -A5 "/usr/bin/free -k" $input/basic-health-check.txt
 
-#read -p "  PROMPT: " prompt
-
-#if [["$prompt" = "q"]]
-#then
-#        exit
-#else
-#function memory()
-#{
-#grep -nri -A5 "/usr/bin/free -k" $input/basic-health-check.txt
-#}
-#fi
